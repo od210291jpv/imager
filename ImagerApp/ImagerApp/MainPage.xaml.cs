@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using ImagerApp.UI_Elements;
 using ImagerApp.Screens;
+using System.Net;
+using System.Net.Http;
+using ImagerApp.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
+
 
 namespace ImagerApp
 {
@@ -25,6 +32,7 @@ namespace ImagerApp
         {
             this.Title = "Login";
             registration_button.Clicked += NavigateToRegistration;
+            login_button.Clicked += SendLogin;
             InitializeComponent();
             login_page_stack_layout.Children.Add(login_entry);
             login_page_stack_layout.Children.Add(password_entry);
@@ -42,6 +50,43 @@ namespace ImagerApp
         private async void NavigateToRegistration(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RegistrationScreen());
+        }
+
+        //public class AuthorizationState
+
+        private async void SendLogin(object sender, EventArgs e)
+        {
+
+
+            var credentials = new UserCredentials {Username = login_entry.Text, Password = password_entry.Text };
+            Dictionary<string, string> credss = new Dictionary<string, string>(2);
+            string json = JsonConvert.SerializeObject(credentials);
+
+
+            string host_url = "http://sigmatestqa.pythonanywhere.com:80/login/";
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.RequestUri = new Uri(host_url);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Method = HttpMethod.Post;
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json-patch+json");
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            var respose_content = await response.Content.ReadAsStringAsync();
+
+            JObject o = JObject.Parse(respose_content);
+            var state_value = o.SelectToken(@"$.state");
+            var auth_info = JsonConvert.DeserializeObject<AuthorizationResponce>(state_value.ToString());
+
+            Label auth_state = new Label() {Text = Convert.ToString(auth_info) };
+
+
+            //auth_state.Text = auth_info.State;
+            login_page_stack_layout.Children.Add(auth_state);
+
+            /////////
+
+
         }
     }
 }

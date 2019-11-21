@@ -33,7 +33,7 @@ namespace ImagerApp.Screens
         private async void CheckConnectionCallback(object sender, EventArgs e)
         {
             string host_ip = ip_address_entry.Text;
-            string host_url = $"http://{host_ip}:8000/";
+            string host_url = host_ip;
 
 
             HttpClient client = new HttpClient();
