@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagerApp.Android", "ImagerApp\ImagerApp.Android\ImagerApp.Android.csproj", "{FB960616-FEB5-4103-9325-CD0B3F38AF34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagerApp", "ImagerApp\ImagerApp\ImagerApp.csproj", "{BB1A672C-82DC-48EF-B054-30C00AFC7632}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB960616-FEB5-4103-9325-CD0B3F38AF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB960616-FEB5-4103-9325-CD0B3F38AF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB960616-FEB5-4103-9325-CD0B3F38AF34}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FB960616-FEB5-4103-9325-CD0B3F38AF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB960616-FEB5-4103-9325-CD0B3F38AF34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB960616-FEB5-4103-9325-CD0B3F38AF34}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BB1A672C-82DC-48EF-B054-30C00AFC7632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB1A672C-82DC-48EF-B054-30C00AFC7632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB1A672C-82DC-48EF-B054-30C00AFC7632}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BB1A672C-82DC-48EF-B054-30C00AFC7632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB1A672C-82DC-48EF-B054-30C00AFC7632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB1A672C-82DC-48EF-B054-30C00AFC7632}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE505598-51C7-4346-A33C-F47D9FD0235D}
+	EndGlobalSection
+EndGlobal
