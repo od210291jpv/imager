@@ -27,6 +27,7 @@ namespace ImagerApp
         Entry password_entry = new Entry() { Placeholder = "Password", IsPassword = true, VerticalOptions = LayoutOptions.Center };
         AppButton login_button = new AppButton("Логин");
         AppButton registration_button = new AppButton("Регистрация");
+        Label login_failed_label = new Label() { Text = "" };
 
         public MainPage()
         {
@@ -38,6 +39,7 @@ namespace ImagerApp
             login_page_stack_layout.Children.Add(password_entry);
             login_page_stack_layout.Children.Add(login_button);
             login_page_stack_layout.Children.Add(registration_button);
+            login_page_stack_layout.Children.Add(login_failed_label);
 
 
             login_page_stack_layout.Padding = new Thickness(50);
@@ -52,40 +54,32 @@ namespace ImagerApp
             await Navigation.PushAsync(new RegistrationScreen());
         }
 
-        //public class AuthorizationState
-
         private async void SendLogin(object sender, EventArgs e)
         {
 
 
             var credentials = new UserCredentials {Username = login_entry.Text, Password = password_entry.Text };
-            Dictionary<string, string> credss = new Dictionary<string, string>(2);
             string json = JsonConvert.SerializeObject(credentials);
 
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string host_url = "http://sigmatestqa.pythonanywhere.com:80/login/";
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage();
-            request.RequestUri = new Uri(host_url);
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            request.Method = HttpMethod.Post;
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json-patch+json");
-            HttpResponseMessage response = await client.SendAsync(request);
+            HttpResponseMessage response = await client.PostAsync("http://192.168.0.106:8000/login/", content);
+
 
             var respose_content = await response.Content.ReadAsStringAsync();
-
             JObject o = JObject.Parse(respose_content);
-            var state_value = o.SelectToken(@"$.state");
-            var auth_info = JsonConvert.DeserializeObject<AuthorizationResponce>(state_value.ToString());
-
-            Label auth_state = new Label() {Text = Convert.ToString(auth_info) };
-
-
-            //auth_state.Text = auth_info.State;
-            login_page_stack_layout.Children.Add(auth_state);
-
-            /////////
-
+            var auth_info = JsonConvert.DeserializeObject<AuthorizationResponce>(o.ToString());
+            if (auth_info.State == "ok")
+            {
+                await Navigation.PushAsync(new MainMenu());
+            }
+            else
+            {
+                
+                login_failed_label.TextColor = Color.Red;
+                login_failed_label.Text = "Авторизация не удалась\n Проверьте логин или пароль";
+            }
 
         }
     }
