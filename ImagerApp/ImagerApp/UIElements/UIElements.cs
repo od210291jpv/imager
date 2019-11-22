@@ -15,4 +15,14 @@ namespace ImagerApp.UI_Elements
             this.CornerRadius = 10;
         }
     }
+
+    class AppEntry : Entry
+    {
+        public AppEntry(string placeholder = "")
+        {
+            this.Placeholder = placeholder;
+            this.PlaceholderColor = Color.White;
+            this.TextColor = Color.White;
+        }
+    }
 }

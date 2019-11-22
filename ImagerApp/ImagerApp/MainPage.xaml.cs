@@ -22,9 +22,9 @@ namespace ImagerApp
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        StackLayout login_page_stack_layout = new StackLayout() {Padding = 2 };
-        Entry login_entry = new Entry() {Placeholder = "Login", VerticalOptions = LayoutOptions.Center};
-        Entry password_entry = new Entry() { Placeholder = "Password", IsPassword = true, VerticalOptions = LayoutOptions.Center };
+        StackLayout login_page_stack_layout = new StackLayout() {Padding = 2, BackgroundColor = Color.DimGray };
+        Entry login_entry = new Entry() {Placeholder = "Login", VerticalOptions = LayoutOptions.Center, PlaceholderColor = Color.White, TextColor = Color.White};
+        Entry password_entry = new Entry() { Placeholder = "Password", IsPassword = true, VerticalOptions = LayoutOptions.Center, PlaceholderColor = Color.White, TextColor = Color.White };
         AppButton login_button = new AppButton("Логин");
         AppButton registration_button = new AppButton("Регистрация");
         Label login_failed_label = new Label() { Text = "" };
@@ -34,6 +34,11 @@ namespace ImagerApp
             this.Title = "Login";
             registration_button.Clicked += NavigateToRegistration;
             login_button.Clicked += SendLogin;
+            login_entry.Focused += OnLoginEntryFocused;
+            login_entry.Unfocused += OnLoginEntryUnfocused;
+            password_entry.Focused += OnPasswordEntryfocused;
+            password_entry.Unfocused += OnPasswordEntryUnfocused;
+
             InitializeComponent();
             login_page_stack_layout.Children.Add(login_entry);
             login_page_stack_layout.Children.Add(password_entry);
@@ -47,6 +52,37 @@ namespace ImagerApp
             this.Content = login_page_stack_layout;
             
             
+        }
+        private void OnLoginEntryUnfocused(object sender, EventArgs e)
+        {
+            if (login_entry.Text == null | login_entry.Text == "")
+            {
+                login_entry.Placeholder = "Login";
+            }
+        }
+
+        private void OnLoginEntryFocused(object sender, EventArgs e)
+        {
+            if (login_entry.Text != "" | login_entry.Text != null )
+            {
+                login_entry.Placeholder = "";
+            }
+        }
+
+        private void OnPasswordEntryfocused(object sender, EventArgs e)
+        {
+            if (password_entry.Text != "" | password_entry.Text != null)
+            {
+                password_entry.Placeholder = "";
+            }
+        }
+
+        private void OnPasswordEntryUnfocused(object sender, EventArgs e)
+        {
+            if (password_entry.Text == null | password_entry.Text == "")
+            {
+                password_entry.Placeholder = "Password";
+            }
         }
 
         private async void NavigateToRegistration(object sender, EventArgs e)
