@@ -14,6 +14,9 @@ namespace ImagerApp.Screens
         FavoritesScreen favorite = new FavoritesScreen();
         public MainMenu()
         {
+            this.Title = "Back";
+            this.SelectedTabColor = Color.MediumSpringGreen;
+            
             this.Children.Add(profile);
             this.Children.Add(feed);
             this.Children.Add(favorite);

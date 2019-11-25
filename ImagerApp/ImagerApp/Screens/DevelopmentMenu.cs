@@ -16,6 +16,7 @@ namespace ImagerApp.Screens
         Entry ip_address_entry = new Entry() { Placeholder = "IP" };
         Button check_connection_button = new Button() {Text = "Check connection with host" };
         Label connection_state_label = new Label() { Text = "Connection State: " };
+        WebView admin_view = new WebView() {Source = new UrlWebViewSource { Url = "http://sigmatestqa.pythonanywhere.com/admin/" }, VerticalOptions = LayoutOptions.FillAndExpand };
 
         public DevelopmentMenu()
         {
@@ -35,23 +36,33 @@ namespace ImagerApp.Screens
             string host_ip = ip_address_entry.Text;
             string host_url = host_ip;
 
-
-            HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage();
-            request.RequestUri = new Uri(host_url);
-            request.Method = HttpMethod.Get;
-            request.Headers.Add("Accept", "application/json");
-            HttpResponseMessage response = await client.SendAsync(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (host_url == "admin")
             {
-                connection_state_label.Text = "Connection State: Connected";
-                connection_state_label.TextColor = Color.Green;
+                dev_menu_stack_layout.Children.Clear();
+                dev_menu_stack_layout.Children.Add(admin_view);
             }
             else
             {
-                connection_state_label.Text = "Connection State: Offline";
-                connection_state_label.TextColor = Color.Red;
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage();
+                request.RequestUri = new Uri(host_url);
+                request.Method = HttpMethod.Get;
+                request.Headers.Add("Accept", "application/json");
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    connection_state_label.Text = "Connection State: Connected";
+                    connection_state_label.TextColor = Color.Green;
+                }
+                else
+                {
+                    connection_state_label.Text = "Connection State: Offline";
+                    connection_state_label.TextColor = Color.Red;
+                }
             }
+
+
         }
+
     }
 }
