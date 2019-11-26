@@ -10,9 +10,18 @@ namespace ImagerApp.Screens
 {
     class FavoritesScreen: ContentPage
     {
+        ListView images_list = new ListView();
+
+
         public FavoritesScreen()
         {
             this.Title = "Favorites";
         }
+
+        private async void GetFavoritePostsLinks(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

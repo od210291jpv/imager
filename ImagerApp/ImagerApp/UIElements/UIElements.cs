@@ -39,7 +39,7 @@ namespace ImagerApp.UI_Elements
 
     class ImageFrame : Frame
     {
-        StackLayout frame_stack = new StackLayout() {Orientation = StackOrientation.Vertical };
+        public StackLayout frame_stack = new StackLayout() {Orientation = StackOrientation.Vertical };
         public ImageFrame()
         {
             this.BackgroundColor = Color.DimGray;
@@ -48,5 +48,6 @@ namespace ImagerApp.UI_Elements
             this.Padding = 5;
             this.Content = frame_stack;
         }
+
     }
 }

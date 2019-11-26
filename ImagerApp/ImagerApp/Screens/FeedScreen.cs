@@ -8,8 +8,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ImagerApp.Models;
-using ImagerApp.UI_Elements;
-
+using ImagerApp.Constants;
 
 namespace ImagerApp.Screens
 {
@@ -35,7 +34,7 @@ namespace ImagerApp.Screens
         {
 
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://sigmatestqa.pythonanywhere.com:80/get_json_images/");
+            HttpResponseMessage response = await client.GetAsync(Common.GET_JSON_IMAGES_URL1);
 
             var respose_content = await response.Content.ReadAsStringAsync();
             JObject o = JObject.Parse(respose_content);
@@ -43,9 +42,16 @@ namespace ImagerApp.Screens
             for (int i = 0; i < all_publications.publications.Count; i++)
             {
                 var pub = all_publications.publications[i];
-                feed_stack.Children.Add(new Image() {Source = new UriImageSource() {CachingEnabled = false, Uri = new Uri($"http://sigmatestqa.pythonanywhere.com:80{pub[0]}") } });
-            }
+                ImageFrame publication_frame = new ImageFrame();
+                publication_frame.frame_stack.Children.Add(new AppLabel() {Text = $"{pub[1]}" });
+                publication_frame.frame_stack.Children.Add(new Image()
+                {
+                   Source = new UriImageSource() { CachingEnabled = true, Uri = new Uri($"{Common.BASE_URL1}{pub[0]}") }
+                });
 
+
+                feed_stack.Children.Add(publication_frame);
+            }
 
         }
 

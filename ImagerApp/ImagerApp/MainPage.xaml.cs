@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 using FFImageLoading;
 using FFImageLoading.Forms;
+using ImagerApp.Constants;
 
 
 namespace ImagerApp
@@ -102,7 +103,7 @@ namespace ImagerApp
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync("http://sigmatestqa.pythonanywhere.com:80/login/", content);
+            HttpResponseMessage response = await client.PostAsync(Common.LOGIN_URL1, content);
 
 
             var respose_content = await response.Content.ReadAsStringAsync();
