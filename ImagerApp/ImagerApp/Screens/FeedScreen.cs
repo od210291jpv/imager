@@ -42,13 +42,7 @@ namespace ImagerApp.Screens
             for (int i = 0; i < all_publications.publications.Count; i++)
             {
                 var pub = all_publications.publications[i];
-                ImageFrame publication_frame = new ImageFrame();
-                publication_frame.frame_stack.Children.Add(new AppLabel() {Text = $"{pub[1]}" });
-                publication_frame.frame_stack.Children.Add(new Image()
-                {
-                   Source = new UriImageSource() { CachingEnabled = true, Uri = new Uri($"{Common.BASE_URL1}{pub[0]}") }
-                });
-
+                ImageFrame publication_frame = new ImageFrame($"{pub[1]}", $"{Common.BASE_URL1}{pub[0]}");
 
                 feed_stack.Children.Add(publication_frame);
             }

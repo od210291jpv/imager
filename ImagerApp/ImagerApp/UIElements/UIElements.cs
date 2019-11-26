@@ -40,13 +40,23 @@ namespace ImagerApp.UI_Elements
     class ImageFrame : Frame
     {
         public StackLayout frame_stack = new StackLayout() {Orientation = StackOrientation.Vertical };
-        public ImageFrame()
+        public Image content_image;
+        AppLabel title_label;
+        public AppButton add_to_favs_button = new AppButton("Добавить в избранные" );
+
+        public ImageFrame(string title, string img_src)
         {
+
+            
+
             this.BackgroundColor = Color.DimGray;
             this.BorderColor = Color.MediumSpringGreen;
             this.CornerRadius = 10;
             this.Padding = 5;
             this.Content = frame_stack;
+            frame_stack.Children.Add(title_label = new AppLabel() {Text = title });
+            frame_stack.Children.Add(content_image = new Image() { Source = img_src });
+            frame_stack.Children.Add(add_to_favs_button);
         }
 
     }
