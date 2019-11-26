@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using ImagerApp.UI_Elements;
 using ImagerApp.Screens;
-using System.Net;
 using System.Net.Http;
 using ImagerApp.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
-using FFImageLoading;
-using FFImageLoading.Forms;
 using ImagerApp.Constants;
 
 
@@ -111,7 +107,7 @@ namespace ImagerApp
             var auth_info = JsonConvert.DeserializeObject<AuthorizationResponce>(o.ToString());
             if (auth_info.State == "ok")
             {
-                await Navigation.PushAsync(new MainMenu());
+                await Navigation.PushAsync(new MainMenu(login_entry.Text, password_entry.Text));
             }
             else
             {

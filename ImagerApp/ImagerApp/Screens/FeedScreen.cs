@@ -17,10 +17,14 @@ namespace ImagerApp.Screens
         ScrollView feed_scroll = new ScrollView() {Orientation = ScrollOrientation.Vertical };
         StackLayout feed_stack = new StackLayout() {Spacing = 2.5, BackgroundColor = Color.DimGray };
         AppButton refresh_feed_button = new AppButton("Click to refresh") { Margin = new Thickness(2.5) };
+        string user_login;
+        string user_password;
 
 
-        public FeedScreen()
+        public FeedScreen(string login, string password)
         {
+            this.user_login = login;
+            this.user_password = password;
             this.Title = "Feed";
 
             GetFeedPostLinks(this, new EventArgs());
@@ -42,7 +46,7 @@ namespace ImagerApp.Screens
             for (int i = 0; i < all_publications.publications.Count; i++)
             {
                 var pub = all_publications.publications[i];
-                ImageFrame publication_frame = new ImageFrame($"{pub[1]}", $"{Common.BASE_URL1}{pub[0]}");
+                ImageFrame publication_frame = new ImageFrame($"{pub[1]}", $"{Common.BASE_URL1}{pub[0]}") {Login = this.user_login, Image_id = Convert.ToInt32(pub[2]) };
 
                 feed_stack.Children.Add(publication_frame);
             }

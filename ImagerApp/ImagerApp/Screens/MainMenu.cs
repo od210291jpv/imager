@@ -10,16 +10,16 @@ namespace ImagerApp.Screens
     class MainMenu: TabbedPage
     {
         ProfileScreen profile = new ProfileScreen();
-        FeedScreen feed = new FeedScreen();
-        FavoritesScreen favorite = new FavoritesScreen();
-        public MainMenu()
+        FeedScreen feed;
+        FavoritesScreen favorite;
+        public MainMenu(string login, string password)
         {
             this.Title = "Back";
             this.SelectedTabColor = Color.MediumSpringGreen;
             
             this.Children.Add(profile);
-            this.Children.Add(feed);
-            this.Children.Add(favorite);
+            this.Children.Add(feed = new FeedScreen(login, password));
+            this.Children.Add(favorite = new FavoritesScreen(login, password));
         }
     }
 }
